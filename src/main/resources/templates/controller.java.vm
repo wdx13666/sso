@@ -1,0 +1,119 @@
+package ${package.Controller};
+
+import org.springframework.web.bind.annotation.RequestMapping;
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+import com.baomidou.mybatisplus.plugins.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+##自定义控制器模板
+
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+
+#else
+    #if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+    #else
+public class ${table.controllerName} {
+    #end
+
+
+    @Autowired
+    private ${table.serviceName} #if(${package.ModuleName})/${package.ModuleName}#end#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}Service#end;
+
+
+    /**
+     * 获取数据列表 (分页)
+     *
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+    public Page<${entity}> findListByPage(@RequestParam(name = "currentPage", defaultValue = "1") int currentPage,@RequestParam(name = "pageSize", defaultValue = "20") int pageSize){
+        Page<${entity}> page = #if(${package.ModuleName})/${package.ModuleName}#end#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}Service#end.selectPage(new Page<>(currentPage,pageSize));
+        return page;
+    }
+
+
+    /**
+     *
+     * 根据id获取单个数据
+     * @param id
+     * @return
+     */
+    @GetMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end/{id}")
+    public ${entity} findOneById(@PathVariable("id") Long id){
+        ${entity} ${entity} = #if(${package.ModuleName})/${package.ModuleName}#end#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}Service#end.selectById(id);
+        return ${entity};
+    }
+
+
+    /**
+     *
+     * 添加数据
+     * @param ${entity}
+     * @return
+     */
+    @PostMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+    public Boolean add(@RequestBody ${entity} ${entity}){
+        boolean isOk = #if(${package.ModuleName})/${package.ModuleName}#end#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}Service#end.insert(${entity});
+        return isOk;
+    }
+
+
+    /**
+     *
+     * 更新数据
+     * @param ${entity}
+     * @return
+     */
+    @PutMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+    public Boolean update(@RequestBody ${entity} ${entity}){
+        boolean isOk = #if(${package.ModuleName})/${package.ModuleName}#end#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}Service#end.updateById(${entity});
+        return isOk;
+    }
+
+    /**
+     *
+     * 删除数据
+     * @param ids
+     * @return
+     */
+    @DeleteMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+    public Boolean delete(@RequestParam("ids") List<Long> ids){
+        boolean isOk = #if(${package.ModuleName})/${package.ModuleName}#end#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}Service#end.deleteBatchIds(ids);
+        return isOk;
+    }
+
+
+
+
+}
+
+#end
