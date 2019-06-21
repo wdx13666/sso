@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smallflyingleg.sso.mapper.SysUserRoleMapper">
+
+    <resultMap id="BaseMapper" type="com.smallflyingleg.sso.pojo.SysUserRole">
+        <result column="user_id" property="userId"></result>
+        <result column="role_id" property="roleId"></result>
+
+        <result column="role_name" property="roleName"></result>
+    </resultMap>
+
+
+    <!--根据用户id查询角色信息-->
+    <select id="querySysUserRoleByUserId" resultMap="BaseMapper">
+      select
+            sur.user_id,
+            sur.role_id,
+
+--             sr.role_code,
+            sr.role_name
+      from sf_sys_user_role sur, sf_sys_role sr
+      where sur.role_id = sr.role_id
+      and sur.user_id = #{userId}
+    </select>
+
+
+</mapper>

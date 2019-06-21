@@ -3,15 +3,12 @@ package com.smallflyingleg.sso;
 import com.smallflyingleg.sso.mapper.SysUserMapper;
 import com.smallflyingleg.sso.pojo.SysUser;
 import com.smallflyingleg.sso.service.SysUserService;
-import net.minidev.json.JSONUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 import java.util.UUID;
 
 @RunWith(SpringRunner.class)
