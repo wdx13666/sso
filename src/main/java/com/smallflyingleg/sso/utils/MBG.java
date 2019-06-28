@@ -16,7 +16,7 @@ public class MBG {
         GlobalConfig config = new GlobalConfig();
         config.setActiveRecord(true) // 是否支持AR模式
                 .setAuthor("wdx") // 作者
-                .setOutputDir("E:\\work\\sso\\src\\main\\java") // 生成路径
+                .setOutputDir("F:\\project\\sso\\src\\main\\java") // 生成路径
                 .setEnableCache(false) //缓存  false不开启
                 .setFileOverride(true)// 文件覆盖
                 .setServiceName("%sService") // 设置生成的service接口名
@@ -34,7 +34,7 @@ public class MBG {
                 .setNaming(NamingStrategy.underline_to_camel) // 数据库表映射到实体的命名策略
                 .setEntityLombokModel(true)     //lombok模型
                 .setRestControllerStyle(true)   //restController
-                .setInclude(new String[]{"sf_sys_user", "sf_sys_role", "sf_sys_permission", "sf_sys_user_role", "sf_sys_role_permission"}) // 生成的表
+                .setInclude(new String[]{"sf_item", "sf_order_item"}) // 生成的表
 //                ,"sf_workflow_event","sf_workflow_event_user","sf_workflow_node","sf_workflow_record"
                 .setTablePrefix("sf_"); // 表前缀
 

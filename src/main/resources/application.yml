@@ -14,7 +14,7 @@ spring:
   redis:
     database: 0
   # Redis服务器地址
-    host: www.kleme.top
+    host: wdx.kleme.top
   # Redis服务器连接端口
     port: 6379
   # Redis服务器连接密码（默认为空）
@@ -58,11 +58,11 @@ mybatis-plus:
 cas:
   server:
     #CAS服务地址
-    host.url: http://localhost:8088/cas
+    host.url: http://localhost:8080/cas
     #CAS服务登录地址
-    host.login_url: http://localhost:8088/cas/login
+    host.login_url: http://localhost:8080/cas/login
     #CAS服务登出地址
-    host.logout_url: http://localhost:8088/cas/logout?service=http://localhost:8088/cas
+    host.logout_url: http://localhost:8080/cas/logout?service=http://localhost:8080/cas
 
 app:
   server:

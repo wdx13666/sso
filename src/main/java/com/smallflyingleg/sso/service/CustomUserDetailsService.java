@@ -3,18 +3,14 @@ package com.smallflyingleg.sso.service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.smallflyingleg.sso.pojo.SysUser;
 import com.smallflyingleg.sso.pojo.SysUserRole;
-import com.smallflyingleg.sso.service.SysUserRoleService;
-import com.smallflyingleg.sso.service.SysUserService;
 import com.smallflyingleg.sso.vo.AuthorityInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.cas.authentication.CasAssertionAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.*;
-import org.springframework.stereotype.Service;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
