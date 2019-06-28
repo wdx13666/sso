@@ -74,7 +74,7 @@ class CartController {
             List<Cart> cartList = findCartList();//获取购物车列表
             cartList = cartService.addGoodsToCartList(cartList, itemId, num);
             String username = "wdx";
-            if (!username.equals("wdx")) {//如果未登录
+            if (!username.equals("wdx")) {//如果未登录ss
                 CookieUtil.setCookie(request, response, "cartList", JSON.toJSONString(cartList), 3600 * 24, "UTF-8");
                 System.out.println("向cookie存入数据");
             }else {//如果是已登录，保存到redis
