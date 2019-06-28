@@ -43,7 +43,7 @@ public class ItemController {
 
     /**
      *
-     * 根据id获取单个数据
+     * 根据id获取单个数据1
      * @param id
      * @return
      */
