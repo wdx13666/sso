@@ -15,7 +15,7 @@ public class CasController {
         return "1232132";
     }
 
-    @ResponseBody
+
     @GetMapping("/index")
     public String index(){
         return "index";
