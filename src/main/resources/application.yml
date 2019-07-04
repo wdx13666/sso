@@ -58,11 +58,11 @@ mybatis-plus:
 cas:
   server:
     #CAS服务地址
-    host.url: http://localhost:8088/cas
+    host.url: http://localhost:8080/cas
     #CAS服务登录地址
-    host.login_url: http://localhost:8088/cas/login
+    host.login_url: http://localhost:8080/cas/login
     #CAS服务登出地址
-    host.logout_url: http://localhost:8088/cas/logout?service=http://localhost:8088/cas
+    host.logout_url: http://localhost:8080/cas/logout?service=http://localhost:8080/cas
 
 app:
   server:
@@ -80,7 +80,7 @@ constants:
   # QQ
   qqAppId: 101698287
   qqAppSecret: 3264980ccc09236770181afcf37be62f
-  qqRedirectUrl: http://localhost:9000/index
+  qqRedirectUrl: http://localhost:9000/QQLogin
   #WECAT
 #  weCatAppId: xxxxxxxxxx
 #  weCatAppSecret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

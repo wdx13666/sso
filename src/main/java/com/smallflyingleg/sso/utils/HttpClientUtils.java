@@ -153,7 +153,7 @@ public class HttpClientUtils {
         HttpPost post = new HttpPost(url);
         try {
             if (params != null && !params.isEmpty()) {
-                List<NameValuePair> formParams = new ArrayList<org.apache.http.NameValuePair>();
+                List<NameValuePair> formParams = new ArrayList<NameValuePair>();
                 Set<Entry<String, String>> entrySet = params.entrySet();
                 for (Entry<String, String> entry : entrySet) {
                     formParams.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));

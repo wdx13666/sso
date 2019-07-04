@@ -54,6 +54,10 @@ public class SysUser extends Model<SysUser> implements UserDetails {
      * 盐
      */
     private String salt;
+    /**
+     * qq关联
+     */
+    private String openId;
 
     @TableField(exist = false)
     private boolean isAccountNonExpired = true;
