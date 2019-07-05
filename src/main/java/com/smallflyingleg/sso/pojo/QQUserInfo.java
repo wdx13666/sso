@@ -24,5 +24,6 @@ public class QQUserInfo {
     private String yellow_vip_level;
     private String level;
     private String is_yellow_year_vip;
+    private String openId;
 
 }

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "constants")
-public class Constants {
+public class  Constants {
 
     @NotEmpty
     private String  qqAppId;

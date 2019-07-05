@@ -1,5 +1,7 @@
 package com.smallflyingleg.sso.config;
 
+import com.smallflyingleg.sso.Filter.QQAuthenticationFilter;
+import com.smallflyingleg.sso.Filter.QQAuthenticationManager;
 import com.smallflyingleg.sso.service.CustomUserDetailsService;
 import com.smallflyingleg.sso.vo.CasProperties;
 import org.jasig.cas.client.session.SingleSignOutFilter;
@@ -18,6 +20,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
@@ -30,34 +33,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CasProperties casProperties;
 
 
-//     * 定义认证用户信息获取来源，密码校验规则等
-
-
+    // 定义认证用户信息获取来源，密码校验规则等
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         super.configure(auth);
         auth.authenticationProvider(casAuthenticationProvider());
-        //inMemoryAuthentication 从内存中获取
-        //auth.inMemoryAuthentication().withUser("chengli").password("123456").roles("USER")
-        //.and().withUser("admin").password("123456").roles("ADMIN");
-
-        //jdbcAuthentication从数据库中获取，但是默认是以security提供的表结构
-        //usersByUsernameQuery 指定查询用户SQL
-        //authoritiesByUsernameQuery 指定查询权限SQL
-        //auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery(query).authoritiesByUsernameQuery(query);
-
-        //注入userDetailsService，需要实现userDetailsService接口
-        //auth.userDetailsService(userDetailsService);
     }
 
+    /**
+     * 自定义 QQ登录 过滤器
+     */
+    private QQAuthenticationFilter qqAuthenticationFilter(){
+        QQAuthenticationFilter authenticationFilter = new QQAuthenticationFilter("/login/qq");
+        //SimpleUrlAuthenticationSuccessHandler successHandler = new SimpleUrlAuthenticationSuccessHandler();
+        //successHandler.setAlwaysUseDefaultTargetUrl(true);
+        //successHandler.setDefaultTargetUrl(“/user”);
+//        MyAuthenticationSuccessHandler successHandler = new MyAuthenticationSuccessHandler();
+//        authenticationFilter.setAuthenticationManager(new QQAuthenticationManager());
+//        authenticationFilter.setAuthenticationSuccessHandler(successHandler);
+        return authenticationFilter;
+    }
 
-//     * 定义安全策略
-
-
+    // 定义安全策略
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()//配置安全策略
-                //.antMatchers("/","/hello").permitAll()//定义/请求不需要验证
+                .antMatchers("/cas/index","/hello").permitAll()//定义/请求不需要验证
                 .anyRequest().authenticated()//其余的所有请求都需要验证
                 .and()
                 .logout()
@@ -70,12 +71,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(casAuthenticationFilter())
                 .addFilterBefore(casLogoutFilter(), LogoutFilter.class)
                 .addFilterBefore(singleSignOutFilter(), CasAuthenticationFilter.class);
+        // 在 UsernamePasswordAuthenticationFilter 前添加 QQAuthenticationFilter
+        http.addFilterAt(qqAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.csrf().disable(); //禁用CSRF
     }
 
 
-    //        *认证的入口
+    // 认证的入口
     @Bean
     public CasAuthenticationEntryPoint casAuthenticationEntryPoint() {
         CasAuthenticationEntryPoint casAuthenticationEntryPoint = new CasAuthenticationEntryPoint();
@@ -93,8 +96,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @return
      */
-
-
     @Bean
     public ServiceProperties serviceProperties() {
         ServiceProperties serviceProperties = new ServiceProperties();
@@ -134,7 +135,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-//        *用户自定义的AuthenticationUserDetailsService
+    // 用户自定义的AuthenticationUserDetailsService
     @Bean
     public AuthenticationUserDetailsService<CasAssertionAuthenticationToken> customUserDetailsService() {
         return new CustomUserDetailsService();
@@ -146,7 +147,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      *
      *@return
      */
-
     @Bean
     public Cas20ServiceTicketValidator cas20ServiceTicketValidator() {
         // 配置上服务端的校验ticket地址
@@ -159,8 +159,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * @return
      * @see
      */
-
-
     @Bean
     public SingleSignOutFilter singleSignOutFilter() {
         SingleSignOutFilter singleSignOutFilter = new SingleSignOutFilter();
@@ -176,7 +174,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * <p>
      *请求/logout，转发至cas服务端进行注销
      */
-
     @Bean
     public LogoutFilter casLogoutFilter() {
         // 设置回调地址，以免注销后页面不再跳转

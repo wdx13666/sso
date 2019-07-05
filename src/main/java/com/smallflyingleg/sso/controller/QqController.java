@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 未整合spring security
+ */
 @RestController
 public class QqController {
 
