@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 //@RestController
 @Controller
-@RequestMapping("/cas")
 public class CasController {
 
     @GetMapping
