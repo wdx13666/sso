@@ -2,7 +2,7 @@ package com.smallflyingleg.sso.Filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.smallflyingleg.sso.pojo.QQUserInfo;
+import com.smallflyingleg.sso.vo.QQUserInfo;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.security.authentication.AuthenticationManager;

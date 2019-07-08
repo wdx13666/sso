@@ -1,4 +1,4 @@
-package com.smallflyingleg.sso.pojo;
+package com.smallflyingleg.sso.vo;
 
 import lombok.Data;
 
